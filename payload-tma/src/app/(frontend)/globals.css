@@ -1,0 +1,348 @@
+:root {
+  /* Palette (Color Hunt f5f5f5-f05454-30475e-121212) — le corail est
+     réservé exclusivement au bloc "à la une" ; tout le reste (liens,
+     onglets, bordures, cartes) utilise le marine. */
+  --color-bg: #f5f5f5;
+  --color-text: #121212;
+  --color-text-dim: rgba(18, 18, 18, 0.6);
+  --color-accent: #30475e; /* marine — usage général : liens, onglets, cartes */
+  --color-featured: #f05454; /* corail — réservé au badge "à la une" */
+
+  /* Inter (variable font, graisses 100 à 900) — auto-hébergée via
+     next/font/google dans layout.tsx (téléchargée au build, aucune requête
+     tierce au runtime). Remplace la pile système Segoe UI précédente ;
+     permet de vraiment jouer sur l'amplitude light/black. */
+  --font-body: var(--font-inter), -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial,
+    sans-serif;
+
+  --content-width: 640px;
+  --radius-card: 16px;
+  --radius-pill: 999px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+.page-shell {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 6rem;
+}
+
+/* --- Nav partagée (TabBar) --- */
+.tab-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 1.5rem;
+  background: var(--color-bg);
+  border-bottom: 1px solid rgba(18, 18, 18, 0.08);
+}
+
+.tab-bar-brand {
+  flex-shrink: 0;
+  display: block;
+  height: 44px;
+  width: auto;
+}
+
+.tab-bar-list {
+  display: flex;
+  gap: 0.6rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+}
+
+.tab-bar-link {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-accent) !important;
+  background: transparent;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  padding: 0.5rem 1.1rem;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.12s ease;
+}
+
+.tab-bar-link:active {
+  transform: scale(0.96);
+}
+
+.tab-bar-link:hover {
+  text-decoration: none;
+  background: rgba(48, 71, 94, 0.08);
+}
+
+.tab-bar-link-active {
+  background: var(--color-accent);
+  color: var(--color-bg) !important;
+}
+
+.tab-bar-link-active:hover {
+  background: var(--color-accent);
+}
+
+/* --- Bloc "à la une" --- */
+.hero {
+  position: relative;
+  margin-top: 1.5rem;
+  margin-bottom: 2.5rem;
+  border: 2px solid var(--color-featured);
+  border-radius: var(--radius-card);
+  padding: 1.75rem 1.3rem 1.1rem;
+  transition: transform 0.12s ease;
+}
+
+.hero:has(.hero-title a:active) {
+  transform: scale(0.99);
+}
+
+.hero-eyebrow {
+  position: absolute;
+  top: -1rem;
+  left: 1.3rem;
+  display: inline-block;
+  background: var(--color-featured);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-pill);
+}
+
+.hero-title {
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.1;
+  margin: 0 0 1rem;
+  color: var(--color-text);
+  padding-right: 3rem;
+}
+
+.hero-title a {
+  color: var(--color-text);
+}
+
+/* Carte entière cliquable : le lien du titre s'étire sur toute la carte
+   (position:relative sur .hero, contexte de positionnement du pseudo-élément)
+   plutôt que d'imbriquer un <a> autour de tout le bloc, ce qui serait du
+   HTML invalide. */
+.hero-title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-excerpt {
+  color: var(--color-text-dim);
+  font-weight: 400;
+  font-size: 1.05rem;
+  max-width: 52ch;
+}
+
+/* --- Liste d'articles : cartes en contour --- */
+.timeline {
+  padding-left: 0;
+}
+
+.timeline-entry {
+  position: relative;
+  background: transparent;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius-card);
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 1rem;
+  transition: transform 0.12s ease;
+}
+
+.timeline-entry:has(.timeline-title a:active) {
+  transform: scale(0.99);
+}
+
+.timeline-entry.has-audio {
+  padding-right: 3.75rem;
+}
+
+.timeline-stamp {
+  display: inline-block;
+  background: rgba(48, 71, 94, 0.1);
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0 0 0.35rem;
+}
+
+.timeline-title a {
+  color: var(--color-text);
+}
+
+/* Carte entière cliquable, même principe que .hero (lien étiré via ::after,
+   pas d'<a> imbriqué). */
+.timeline-title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.timeline-excerpt {
+  color: var(--color-text-dim);
+  font-weight: 400;
+  font-size: 0.95rem;
+  max-width: 58ch;
+}
+
+.timeline-empty {
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  padding: 2rem 0;
+}
+
+/* --- Bouton casque (renvoie vers la version audio du même texte) --- */
+.audio-button {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  color: var(--color-accent) !important;
+  transition: background-color 0.15s ease, transform 0.12s ease;
+}
+
+.audio-button:hover {
+  background: rgba(48, 71, 94, 0.1);
+  text-decoration: none;
+}
+
+.audio-button:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+.hero .audio-button {
+  top: 1.75rem;
+  transform: none;
+}
+
+.hero .audio-button:active {
+  transform: scale(0.92);
+}
+
+/* --- Page détail d'un texte --- */
+.article-meta {
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+.article-title {
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+  line-height: 1.15;
+  margin: 0 0 2rem;
+  color: var(--color-text);
+}
+
+.article-cover {
+  width: 100%;
+  border-radius: var(--radius-card);
+  margin-bottom: 2.5rem;
+  display: block;
+}
+
+.article-body {
+  font-weight: 400;
+  font-size: 1.08rem;
+}
+
+.article-body p {
+  margin: 0 0 1.4em;
+}
+
+.cross-sell {
+  margin-top: 3rem;
+  padding: 1.25rem 1.5rem;
+  background: transparent;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius-card);
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--color-accent);
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 3rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--color-accent);
+}
