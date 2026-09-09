@@ -54,8 +54,8 @@ export default async function TextPage({ params }: Props) {
 
       {text.audioVersion ? (
         <div className="cross-sell">
-          Ce texte existe aussi en version lue par l'auteur — l'onglet Audio
-          arrive dans une prochaine étape.
+          Ce texte existe aussi en version lue par l'auteur.{' '}
+          <Link href={`/audio/${text.audioVersion.slug}`}>Écouter la version audio →</Link>
         </div>
       ) : null}
 

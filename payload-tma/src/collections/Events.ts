@@ -22,6 +22,7 @@ export const Events: CollectionConfig = {
   },
   fields: [
     { name: 'title', type: 'text', required: true },
+    { name: 'slug', type: 'text', required: true, unique: true, admin: { position: 'sidebar' } },
     {
       name: 'type',
       type: 'select',
@@ -42,9 +43,6 @@ export const Events: CollectionConfig = {
     },
     { name: 'ticketPriceStars', type: 'number', label: 'Prix du billet en Stars' },
     {
-      // Groupe/canal privé Telegram vers lequel Payload génère un lien
-      // d'invitation à usage unique à l'achat (consommé par le bot, pas encore
-      // codé ici — ce champ ne fait que stocker la cible).
       name: 'privateChannelId',
       type: 'text',
       label: 'ID du groupe/canal privé Telegram dédié',

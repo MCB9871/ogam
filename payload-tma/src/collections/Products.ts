@@ -17,6 +17,7 @@ export const Products: CollectionConfig = {
   },
   fields: [
     { name: 'title', type: 'text', required: true },
+    { name: 'slug', type: 'text', required: true, unique: true, admin: { position: 'sidebar' } },
     {
       name: 'category',
       type: 'select',
