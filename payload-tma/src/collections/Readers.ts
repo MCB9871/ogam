@@ -24,6 +24,8 @@ export const Readers: CollectionConfig = {
       name: 'telegramId',
       type: 'number',
       label: 'ID Telegram (si connu)',
+      unique: true,
+      index: true,
       admin: { description: 'Rempli automatiquement si le lecteur passe par la TMA' },
     },
     {

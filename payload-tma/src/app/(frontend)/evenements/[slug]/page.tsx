@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { getPayloadClient } from '@/lib/payload'
+import { BuyButton } from '../../components/BuyButton'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -52,11 +53,13 @@ export default async function EventPage({ params }: Props) {
       </div>
 
       {event.ticketPriceStars ? (
-        <span className="price-pill">{event.ticketPriceStars} ★</span>
+        <BuyButton
+          itemType="event_ticket"
+          itemId={event.id}
+          priceStars={event.ticketPriceStars}
+          label={`Réserver · ${event.ticketPriceStars} ★`}
+        />
       ) : null}
-
-      {/* Billetterie complète (lien d'invitation à usage unique) pas encore
-          branchée côté front — voir CONTEXTE_TMA_v2.md §10.5 */}
 
       <div>
         <Link href="/evenements" className="back-link">

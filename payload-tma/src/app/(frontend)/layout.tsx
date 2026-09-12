@@ -1,9 +1,11 @@
 import React from 'react'
+import Script from 'next/script'
 import { Inter } from 'next/font/google'
 
 import { getPayloadClient } from '@/lib/payload'
 
 import { TabBar, type Tab } from './components/TabBar'
+import { ReaderGate } from './components/ReaderGate'
 import './globals.css'
 
 // Police : Inter (variable font, graisses 100 à 900) — auto-hébergée par
@@ -43,7 +45,9 @@ export default async function FrontendLayout({ children }: { children: React.Rea
   return (
     <html lang="fr" className={inter.variable}>
       <body>
+        <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
         <TabBar tabs={tabs} />
+        <ReaderGate />
         {children}
       </body>
     </html>

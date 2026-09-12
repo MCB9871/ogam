@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { getPayloadClient } from '@/lib/payload'
+import { BuyButton } from '../../components/BuyButton'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -37,10 +38,7 @@ export default async function ProductPage({ params }: Props) {
         {product.description ? <p>{product.description}</p> : null}
       </div>
 
-      <span className="price-pill">{product.priceStars} ★</span>
-
-      {/* Pas de bouton d'achat : le paiement Stars côté front n'est pas
-          encore branché (voir CONTEXTE_ADDENDUM_2026-08-31.md, point 2). */}
+      <BuyButton itemType="product" itemId={product.id} priceStars={product.priceStars} />
 
       <div>
         <Link href="/boutique" className="back-link">

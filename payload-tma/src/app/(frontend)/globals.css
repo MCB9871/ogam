@@ -393,3 +393,110 @@ button:focus-visible {
     flex-basis: 45%;
   }
 }
+
+/* --- Modale email/RGPD (ReaderGate) --- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(18, 18, 18, 0.45);
+  padding: 1rem;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--color-bg);
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+}
+
+.modal-title {
+  font-weight: 800;
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem;
+}
+
+.modal-body {
+  color: var(--color-text-dim);
+  font-size: 0.9rem;
+  margin: 0 0 1.2rem;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 2px solid var(--color-accent);
+  border-radius: calc(var(--radius-card) - 6px);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  margin-bottom: 0.9rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.modal-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--color-text-dim);
+  margin-bottom: 0.7rem;
+}
+
+.modal-checkbox input {
+  margin-top: 0.15rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.modal-dismiss {
+  background: transparent;
+  border: none;
+  color: var(--color-text-dim);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+/* --- Bouton d'achat (Boutique/Audio/Événements) --- */
+.buy-button {
+  display: inline-block;
+  background: var(--color-accent);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 0.75rem 1.4rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, opacity 0.15s ease;
+}
+
+.buy-button:active {
+  transform: scale(0.97);
+}
+
+.buy-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.buy-error {
+  color: var(--color-featured);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.buy-success {
+  background: var(--color-accent);
+}

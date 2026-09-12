@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { getPayloadClient } from '@/lib/payload'
+import { BuyButton } from '../../components/BuyButton'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -35,17 +36,18 @@ export default async function AudioEpisodePage({ params }: Props) {
       </p>
       <h1 className="article-title">{episode.title}</h1>
 
-      <span className="price-pill">
-        {tierLabel(episode.unlockTier)}
-        {episode.priceStars ? ` · ${episode.priceStars} ★` : ''}
-      </span>
+      <span className="price-pill">{tierLabel(episode.unlockTier)}</span>
 
       <div className="article-body" style={{ marginTop: '1.5rem' }}>
-        {/* Lecture réelle en attente du paiement Stars côté front (voir
-            CONTEXTE_ADDENDUM_2026-08-31.md, point 2) — ne pas exposer le
-            fichier audio ici tant qu'il n'y a pas de vérification d'achat. */}
-        <p className="timeline-empty" style={{ padding: 0 }}>
-          Déblocage via paiement Telegram Stars — bientôt disponible.
+        <BuyButton
+          itemType="audio_unlock"
+          itemId={episode.id}
+          priceStars={episode.priceStars}
+        />
+        {/* Le lecteur réel s'affichera ici une fois l'achat vérifié côté
+            serveur (pas encore construit — voir CONTEXTE_ADDENDUM_2026-09-12.md §8). */}
+        <p className="timeline-empty" style={{ padding: '1rem 0 0' }}>
+          Le lecteur s'active automatiquement une fois l'achat confirmé.
         </p>
       </div>
 
